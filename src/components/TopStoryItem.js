@@ -2,9 +2,11 @@ import React from "react";
 
 const TopStoryItem = ({topStory}) => {
 
-
+    console.log({topStory})
     return (
-        <p>IM A STORY</p>
+        <li>
+            <a href={topStory.url}>{topStory.title}</a>
+        </li>
     )
 }
 

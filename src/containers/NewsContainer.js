@@ -6,6 +6,7 @@ import TopStoryList from '../components/TopStoryList'
 const NewsContainer = () => {
 
     const [topStories, setTopStories] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect( () => {
         fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
@@ -16,18 +17,13 @@ const NewsContainer = () => {
                     .then(res => res.json())
             }))
             .then(twentyPromises => Promise.all(twentyPromises))
-            .then(finalStories => setTopStories(finalStories))
-        // console.log(twentyPromises)
-
-        
-            // Promise.all(twentyPromises)
-            //     .then(console.log)
+            .then(finalStories => {setTopStories(finalStories); setLoading(false)})
     }, [])
 
     return (
         <div>
             <h1>NEWS OIOI</h1>
-            <TopStoryList topStories={topStories}/>
+            {loading ? <p>Loading...</p> :<TopStoryList topStories={topStories}/>}
         </div>
     )
 
